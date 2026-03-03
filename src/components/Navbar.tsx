@@ -62,7 +62,7 @@ export default function Navbar() {
         <nav className="section-container flex items-center justify-between h-16 sm:h-18">
           {/* Logo */}
           <a href="#" className="text-lg font-bold tracking-tight gradient-text">
-            MKG
+            Mohit Kumar Goyal
           </a>
 
           {/* Desktop Nav */}
