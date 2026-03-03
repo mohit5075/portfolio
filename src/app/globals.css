@@ -1,1 +1,187 @@
 @import "tailwindcss";
+
+/* ── Light mode custom properties ── */
+:root {
+  --bg: #ffffff;
+  --bg-card: #f4f4f7;
+  --bg-card-hover: #eaeaef;
+  --bg-alt: #f8f8fb;
+  --border: #e0e0e8;
+  --text-heading: #0f172a;
+  --text-body: #334155;
+  --text-muted: #94a3b8;
+  --accent: #6366f1;
+  --accent-hover: #4f46e5;
+  --accent-light: #818cf8;
+  --accent-glow: rgba(99, 102, 241, 0.25);
+}
+
+/* ── Dark mode custom properties ── */
+.dark {
+  --bg: #09090b;
+  --bg-card: #131318;
+  --bg-card-hover: #1c1c24;
+  --bg-alt: #0e0e13;
+  --border: #23232f;
+  --text-heading: #e2e8f0;
+  --text-body: #a1a1b5;
+  --text-muted: #5a5a72;
+  --accent: #818cf8;
+  --accent-hover: #6366f1;
+  --accent-light: #a5b4fc;
+  --accent-glow: rgba(129, 140, 248, 0.2);
+}
+
+@theme {
+  --font-sans: "Inter", ui-sans-serif, system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI",
+    Roboto, "Helvetica Neue", Arial, sans-serif;
+}
+
+@layer base {
+  html {
+    scroll-behavior: smooth;
+    scroll-padding-top: 5rem;
+  }
+
+  body {
+    font-family: var(--font-sans);
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+    background-color: var(--bg);
+    color: var(--text-body);
+    transition: background-color 0.3s, color 0.3s;
+  }
+
+  ::selection {
+    background: var(--accent-glow);
+    color: var(--accent-light);
+  }
+}
+
+@layer components {
+  /* ── Layout ── */
+  .section-container {
+    @apply mx-auto max-w-6xl px-4 sm:px-6 lg:px-8;
+  }
+
+  .section-padding {
+    @apply py-20 sm:py-28;
+  }
+
+  /* ── Typography ── */
+  .section-title {
+    @apply text-3xl font-bold tracking-tight sm:text-4xl;
+    color: var(--text-heading);
+  }
+
+  .section-subtitle {
+    @apply mt-4 text-lg;
+    color: var(--text-muted);
+  }
+
+  /* ── Card ── */
+  .card {
+    @apply rounded-2xl border transition-all duration-300;
+    background: var(--bg-card);
+    border-color: var(--border);
+  }
+
+  .card:hover {
+    background: var(--bg-card-hover);
+    box-shadow: 0 8px 30px var(--accent-glow);
+  }
+
+  /* ── Buttons ── */
+  .btn-primary {
+    @apply inline-flex items-center gap-2 rounded-xl px-6 py-3 text-sm font-semibold transition-all duration-200;
+    @apply hover:-translate-y-0.5 active:translate-y-0;
+    background: var(--accent);
+    color: #fff;
+    box-shadow: 0 4px 14px var(--accent-glow);
+  }
+
+  .btn-primary:hover {
+    background: var(--accent-hover);
+    box-shadow: 0 6px 20px var(--accent-glow);
+  }
+
+  .btn-secondary {
+    @apply inline-flex items-center gap-2 rounded-xl px-6 py-3 text-sm font-semibold transition-all duration-200;
+    @apply hover:-translate-y-0.5;
+    border: 1px solid var(--border);
+    color: var(--text-heading);
+  }
+
+  .btn-secondary:hover {
+    background: var(--bg-card);
+  }
+
+  /* ── Gradient text ── */
+  .gradient-text {
+    @apply bg-clip-text text-transparent;
+    background-image: linear-gradient(135deg, var(--accent), var(--accent-light), #c084fc);
+  }
+
+  /* ── Helpers ── */
+  .text-heading {
+    color: var(--text-heading);
+  }
+
+  .text-body {
+    color: var(--text-body);
+  }
+
+  .text-muted {
+    color: var(--text-muted);
+  }
+
+  .bg-alt {
+    background-color: var(--bg-alt);
+  }
+
+  .border-theme {
+    border-color: var(--border);
+  }
+
+  .accent-text {
+    color: var(--accent);
+  }
+
+  .accent-bg {
+    background-color: var(--accent);
+  }
+
+  .accent-bg-subtle {
+    background: color-mix(in srgb, var(--accent) 12%, transparent);
+  }
+
+  .accent-border-subtle {
+    border-color: color-mix(in srgb, var(--accent) 30%, transparent);
+  }
+}
+
+@utility animate-fade-in-up {
+  animation: fadeInUp 0.6s ease-out forwards;
+  opacity: 0;
+}
+
+@keyframes fadeInUp {
+  from {
+    opacity: 0;
+    transform: translateY(20px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+@utility animate-fade-in {
+  animation: fadeIn 0.6s ease-out forwards;
+  opacity: 0;
+}
+
+@keyframes fadeIn {
+  from { opacity: 0; }
+  to { opacity: 1; }
+}

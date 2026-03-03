@@ -1,34 +1,81 @@
-This is a [Next.js](https://nextjs.org) project bootstrapped with [`create-next-app`](https://nextjs.org/docs/app/api-reference/cli/create-next-app).
+# Mohit Kumar Goyal — Portfolio
+
+A modern, premium, recruiter-focused portfolio website built with **Next.js 16**, **Tailwind CSS v4**, **Framer Motion**, and **TypeScript**.
+
+## Features
+
+- ✅ Dark / Light mode toggle with system preference detection
+- ✅ Smooth scroll navigation with active section highlighting
+- ✅ Fully responsive (mobile-first design)
+- ✅ Subtle animations (fade-in on scroll, smooth transitions)
+- ✅ SEO optimized with Open Graph & Twitter meta tags
+- ✅ Clean component architecture
+- ✅ Vercel deployment ready
+
+## Tech Stack
+
+| Layer       | Technology                        |
+|------------|-----------------------------------|
+| Framework  | Next.js 16 (App Router)           |
+| Styling    | Tailwind CSS v4                   |
+| Animations | Framer Motion                     |
+| Icons      | Lucide React                      |
+| Language   | TypeScript                        |
+| Deployment | Vercel                            |
 
 ## Getting Started
 
-First, run the development server:
-
 ```bash
+# Install dependencies
+npm install
+
+# Start development server
 npm run dev
-# or
-yarn dev
-# or
-pnpm dev
-# or
-bun dev
+
+# Build for production
+npm run build
+
+# Start production server
+npm start
 ```
 
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
+## Project Structure
 
-You can start editing the page by modifying `app/page.tsx`. The page auto-updates as you edit the file.
+```
+src/
+├── app/
+│   ├── globals.css          # Tailwind theme & global styles
+│   ├── layout.tsx           # Root layout with SEO metadata
+│   └── page.tsx             # Main page composing all sections
+├── components/
+│   ├── ThemeProvider.tsx     # Dark/light mode context
+│   ├── AnimateOnScroll.tsx   # Reusable scroll animation wrapper
+│   ├── Navbar.tsx            # Sticky navigation bar
+│   ├── Hero.tsx              # Hero section with CTA
+│   ├── About.tsx             # About me section
+│   ├── Experience.tsx        # Work experience timeline
+│   ├── Projects.tsx          # Project cards grid
+│   ├── Skills.tsx            # Categorized skills
+│   ├── Achievements.tsx      # Competitive exam rankings
+│   ├── Education.tsx         # Education details
+│   ├── Contact.tsx           # Contact links & email CTA
+│   └── Footer.tsx            # Footer with social links
+public/
+├── favicon.svg              # Site favicon
+└── resume.pdf               # Resume download (replace with actual PDF)
+```
 
-## Learn More
+## Customization
 
-To learn more about Next.js, take a look at the following resources:
+- **Resume**: Replace `public/resume.pdf` with your actual resume PDF
+- **Social Links**: Update URLs in `Navbar.tsx`, `Contact.tsx`, and `Footer.tsx`
+- **Email**: Update email address in `Contact.tsx`
+- **Content**: Edit any component in `src/components/` to update text
 
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
+## Deploy to Vercel
 
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js) - your feedback and contributions are welcome!
+```bash
+npx vercel
+```
 
-## Deploy on Vercel
-
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
-
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/app/building-your-application/deploying) for more details.
+Or connect your GitHub repository to [Vercel](https://vercel.com) for automatic deployments.
