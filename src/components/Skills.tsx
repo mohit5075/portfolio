@@ -9,32 +9,36 @@ interface SkillCategory {
 
 const skillCategories: SkillCategory[] = [
   {
-    title: "Backend",
-    skills: ["Java", "Kotlin", "Spring Boot", "Hibernate", "JDBC"],
+    title: "Programming Languages",
+    skills: ["C/C++", "Java", "Kotlin", "Python", "JavaScript"],
   },
   {
-    title: "Distributed Systems",
-    skills: ["Apache Kafka", "Elasticsearch", "Netflix Conductor"],
+    title: "Backend Technologies",
+    skills: ["SpringBoot", "Maven", "Hibernate", "JDBC", "Microservices"],
   },
   {
-    title: "Cloud & DevOps",
-    skills: ["AWS", "Terraform", "Docker", "Nomad", "Consul"],
+    title: "Datastores",
+    skills: ["PostgreSQL", "MongoDB", "Elasticsearch", "ClickHouse"],
   },
   {
-    title: "Databases",
-    skills: ["PostgreSQL", "MongoDB"],
-  },
-  {
-    title: "Security",
-    skills: ["JWT", "HashiCorp Vault"],
-  },
-  {
-    title: "Testing & Observability",
-    skills: ["JUnit", "Mockito", "Kibana"],
+    title: "DevOps Technologies",
+    skills: ["Terraform", "Docker", "AWS", "Ansible"],
   },
   {
     title: "Core Concepts",
-    skills: ["DSA", "OOPS", "Operating Systems", "Multithreading", "LLD", "HLD"],
+    skills: ["DSA", "OS", "OOP", "Multithreading", "Design Patterns", "LLD", "HLD"],
+  },
+  {
+    title: "Testing & Observability",
+    skills: ["JUnit", "Mockito", "Kibana", "Superset", "Grafana", "Prometheus"],
+  },
+  {
+    title: "Miscellaneous",
+    skills: ["Kafka", "Debezium", "Javers", "Netflix Conductor", "Kong", "Camunda"],
+  },
+  {
+    title: "AI & LLM Tools",
+    skills: ["Github Copilot", "Claude", "LangChain"],
   },
 ];
 

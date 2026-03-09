@@ -15,29 +15,29 @@ interface Project {
 
 const projects: Project[] = [
   {
-    title: "Intelligent Document Q&A System",
+    title: "Emotion Recognition",
     description:
-      "A RAG-based intelligent question-answering system that enables users to query documents with high accuracy and minimal hallucination.",
-    icon: Bot,
+      "Developed a real-time emotion classifier using computer vision and audio processing techniques to analyse data from webcam.",
+    icon: Brain,
     highlights: [
-      "Built RAG pipeline using LangChain for context-aware document retrieval and generation",
-      "Developed Spring Boot backend with JWT authentication and role-based access control",
-      "Reduced hallucination by 45% through chunk optimization and prompt engineering",
+      "Built and trained a CNN model in TensorFlow and Keras for real-time emotion classification from facial expressions",
+      "Successfully achieved a predictive accuracy of 70% across multiple emotion categories",
+      "Integrated computer vision techniques using OpenCV for webcam data processing",
     ],
-    tags: ["LangChain", "Spring Boot", "RAG", "Python", "Java"],
+    tags: ["TensorFlow", "Keras", "CNN", "Python", "OpenCV", "Computer Vision"],
     github: "https://github.com/mohit5075",
   },
   {
-    title: "Emotion Recognition System",
+    title: "Intelligent Document Q&A System",
     description:
-      "Real-time emotion classification system using Convolutional Neural Networks for facial expression analysis.",
-    icon: Brain,
+      "Developed a Python service using LangChain for LLM integration, SpringBoot backend for auth and doc upload.",
+    icon: Bot,
     highlights: [
-      "Designed CNN architecture for real-time emotion classification from facial expressions",
-      "Built with TensorFlow + Keras for model training and inference optimization",
-      "Achieved 70% predictive accuracy across 7 emotion categories",
+      "Built LangChain-based service for intelligent document question-answering with LLM integration",
+      "Developed Spring Boot backend with JWT authentication and document upload management",
+      "Implemented a RAG pipeline significantly improving answer relevance by 45% reducing model hallucinations",
     ],
-    tags: ["TensorFlow", "Keras", "CNN", "Python", "OpenCV"],
+    tags: ["LangChain", "Spring Boot", "RAG", "Python", "Java", "LLM"],
     github: "https://github.com/mohit5075",
   },
 ];

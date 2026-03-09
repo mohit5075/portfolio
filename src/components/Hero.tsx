@@ -51,9 +51,9 @@ export default function Hero() {
           transition={{ duration: 0.6, delay: 0.2 }}
           className="mt-6 text-lg sm:text-xl text-body max-w-2xl mx-auto leading-relaxed"
         >
-          Software Engineer with 2+ years of experience designing secure, event-driven,
-          multi-tenant systems. IIT Roorkee graduate passionate about system design
-          and performance optimization.
+          Software Engineer with 2.5 years of experience building secure, scalable backend 
+          systems using Java and SpringBoot. Strong foundation in DSA, OOPS, and distributed 
+          systems, with hands-on AWS experience and a passion for logical problem-solving.
         </motion.p>
 
         <motion.div

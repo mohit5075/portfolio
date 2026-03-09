@@ -23,24 +23,26 @@ export default function About() {
           <AnimateOnScroll className="lg:col-span-3">
             <div className="space-y-5 text-body leading-relaxed">
               <p>
-                I&apos;m a backend-focused Software Engineer with strong foundations in
+                I&apos;m a Software Engineer with 2.5 years of experience building secure, 
+                scalable backend systems using Java and SpringBoot. With strong foundations in
                 Data Structures & Algorithms, Object-Oriented Programming, and Distributed
-                Systems. I thrive on building systems that are scalable, resilient, and
-                performant.
+                Systems, I thrive on solving complex technical challenges.
               </p>
               <p>
-                With hands-on experience in <span className="text-heading font-medium">Java, Spring Boot, Kafka, and Elasticsearch</span>,
-                I&apos;ve designed and delivered production-grade event-driven architectures and
-                multi-tenant platforms serving the BFSI domain.
+                My expertise spans <span className="text-heading font-medium">Java, SpringBoot, Kafka, PostgreSQL, Elasticsearch, and ClickHouse</span>,
+                where I&apos;ve designed and delivered production-grade event-driven architectures and
+                multi-tenant platforms serving the BFSI domain, processing thousands of events per second
+                with sub-second latency.
               </p>
               <p>
-                My infrastructure expertise spans <span className="text-heading font-medium">AWS, Terraform, Docker, and HashiCorp tools</span> —
-                enabling me to automate deployments, optimize costs, and maintain
-                robust security practices.
+                On the infrastructure side, I work extensively with <span className="text-heading font-medium">AWS, Terraform, Docker, Nomad, and HashiCorp Vault</span> —
+                enabling automated deployments, cost optimization (achieved ~35% reduction), and
+                robust security practices including JWT authentication and secrets management.
               </p>
               <p>
-                I&apos;m passionate about system design, performance optimization,
-                and building tools that solve real-world problems at scale.
+                I&apos;m passionate about system design, performance optimization, and building
+                scalable solutions that solve real-world problems. I love exploring AI/LLM tools
+                and continuously improving my craft through logical problem-solving.
               </p>
             </div>
           </AnimateOnScroll>
