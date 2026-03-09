@@ -151,7 +151,7 @@ export default function Navbar() {
                 </a>
               ))}
               <a
-                href="https://drive.google.com/file/d/1pmsqukdZF1GSMPmdVkfJK2fnxttWMbiA/view"
+                href="https://drive.google.com/file/d/1FyWha9rj6yxY_aJQmtRC8QhZb2Nop4pl/view?usp=sharing"
                 target="_blank"
                 rel="noopener noreferrer"
                 className="btn-primary justify-center mt-4"
