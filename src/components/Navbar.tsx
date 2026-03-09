@@ -109,7 +109,7 @@ export default function Navbar() {
             >
               {theme === "dark" ? <Sun size={18} /> : <Moon size={18} />}
             </button>
-            <a href="https://drive.google.com/file/d/1pmsqukdZF1GSMPmdVkfJK2fnxttWMbiA/view" target="_blank" rel="noopener noreferrer" className="hidden sm:inline-flex btn-primary !py-2 !px-4 !text-xs">
+            <a href="https://drive.google.com/file/d/1FyWha9rj6yxY_aJQmtRC8QhZb2Nop4pl/view?usp=sharing" target="_blank" rel="noopener noreferrer" className="hidden sm:inline-flex btn-primary !py-2 !px-4 !text-xs">
               <Download size={14} />
               Resume
             </a>
