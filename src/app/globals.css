@@ -18,18 +18,23 @@
 
 /* ── Dark mode custom properties ── */
 .dark {
-  --bg: #09090b;
-  --bg-card: #131318;
-  --bg-card-hover: #1c1c24;
-  --bg-alt: #0e0e13;
+  --bg: #0a0a0f;
+  --bg-card: #12121a;
+  --bg-card-hover: #1a1a28;
+  --bg-alt: #0e0e16;
   --border: #23232f;
-  --text-heading: #e2e8f0;
-  --text-body: #a1a1b5;
-  --text-muted: #5a5a72;
-  --accent: #818cf8;
-  --accent-hover: #6366f1;
-  --accent-light: #a5b4fc;
-  --accent-glow: rgba(129, 140, 248, 0.2);
+  --text-heading: #f1f5f9;
+  --text-body: #cbd5e1;
+  --text-muted: #64748b;
+  --accent: #00d4ff;
+  --accent-hover: #00bfe6;
+  --accent-light: #33ddff;
+  --accent-glow: rgba(0, 212, 255, 0.25);
+  --neon-cyan: #00d4ff;
+  --neon-purple: #a78bfa;
+  --neon-pink: #f472b6;
+  --neon-green: #6bcf7f;
+  --neon-yellow: #ffd93d;
 }
 
 @theme {
@@ -157,6 +162,42 @@
 
   .accent-border-subtle {
     border-color: color-mix(in srgb, var(--accent) 30%, transparent);
+  }
+
+  /* ── Glassmorphism ── */
+  .glass {
+    background: rgba(255, 255, 255, 0.05);
+    backdrop-filter: blur(10px);
+    border: 1px solid rgba(255, 255, 255, 0.1);
+  }
+
+  .glass-hover:hover {
+    background: rgba(255, 255, 255, 0.08);
+    border-color: rgba(255, 255, 255, 0.2);
+  }
+
+  /* ── Neon glow effects ── */
+  .neon-cyan {
+    box-shadow: 0 0 20px var(--neon-cyan), 0 0 40px var(--neon-cyan);
+  }
+
+  .neon-purple {
+    box-shadow: 0 0 20px var(--neon-purple), 0 0 40px var(--neon-purple);
+  }
+
+  .neon-text-cyan {
+    color: var(--neon-cyan);
+    text-shadow: 0 0 10px var(--neon-cyan);
+  }
+
+  /* ── Code theme ── */
+  .code-block {
+    background: linear-gradient(135deg, rgba(10, 10, 30, 0.9) 0%, rgba(30, 10, 50, 0.9) 100%);
+    backdrop-filter: blur(20px);
+    border: 1px solid rgba(0, 212, 255, 0.2);
+    border-radius: 1rem;
+    padding: 1.5rem;
+    font-family: "Fira Code", "Consolas", monospace;
   }
 }
 
