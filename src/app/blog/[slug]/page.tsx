@@ -415,6 +415,328 @@ alerts:
 This approach saved us $70,000+ annually while maintaining performance SLAs.
     `,
   },
+  "distributed-job-scheduler": {
+    title: "Building a Distributed Fault-Tolerant Job Scheduler with Kafka",
+    date: "May 2026",
+    readTime: "11 min read",
+    tags: ["Kafka", "Distributed Systems", "Fault Tolerance", "Job Scheduling"],
+    content: `
+# Building a Distributed Fault-Tolerant Job Scheduler with Kafka
+
+In this article, I'll walk through how we designed and built a distributed job scheduling system that handles 10K+ concurrent jobs with 99.9% reliability.
+
+## The Problem
+
+We needed a system that could:
+
+- Schedule and execute thousands of jobs concurrently
+- Guarantee at-least-once execution
+- Handle worker failures gracefully
+- Scale horizontally as job volume grows
+- Support multiple retry strategies
+
+## Architecture Overview
+
+\`\`\`
+┌──────────────┐     ┌──────────────┐     ┌──────────────────┐
+│  Scheduler   │────▶│    Kafka     │────▶│  Worker Pool     │
+│   Service    │     │   Topics     │     │  (Horizontally   │
+│              │     │              │     │   Scalable)      │
+└──────────────┘     └──────────────┘     └──────────────────┘
+       │                    │                      │
+       │              ┌─────▼─────┐                │
+       │              │   DLQ     │                │
+       │              │  (Retry)  │                │
+       │              └───────────┘                │
+       ▼                                           ▼
+┌──────────────┐                          ┌──────────────┐
+│  PostgreSQL  │◀─────────────────────────│  State Store │
+│  (Job State) │                          │  (Results)   │
+└──────────────┘                          └──────────────┘
+\`\`\`
+
+## Core Components
+
+### 1. Job Scheduler Service
+
+The scheduler is responsible for accepting job requests, persisting them to the database, and publishing to Kafka topics.
+
+\`\`\`java
+@Service
+public class JobSchedulerService {
+
+    @Autowired
+    private KafkaTemplate<String, JobMessage> kafkaTemplate;
+    
+    @Autowired
+    private JobRepository jobRepository;
+
+    @Transactional
+    public JobResponse scheduleJob(JobRequest request) {
+        // Persist job to DB first (durability)
+        Job job = Job.builder()
+            .id(UUID.randomUUID())
+            .type(request.getType())
+            .payload(request.getPayload())
+            .status(JobStatus.QUEUED)
+            .maxRetries(request.getMaxRetries())
+            .retryCount(0)
+            .createdAt(Instant.now())
+            .build();
+        
+        jobRepository.save(job);
+        
+        // Publish to Kafka for decoupled execution
+        JobMessage message = JobMessage.from(job);
+        kafkaTemplate.send("jobs." + request.getType(), 
+            job.getId().toString(), message);
+        
+        return new JobResponse(job.getId(), JobStatus.QUEUED);
+    }
+}
+\`\`\`
+
+### 2. Kafka Topic Design
+
+We use topic partitioning for parallelism and ordering guarantees:
+
+- **jobs.{type}** - Per-type topics for job execution
+- **jobs.retry** - Retry topic with delay headers
+- **jobs.dlq** - Dead letter queue for failed jobs
+
+\`\`\`java
+@Configuration
+public class KafkaTopicConfig {
+    
+    @Bean
+    public NewTopic jobsTopic() {
+        return TopicBuilder.name("jobs.default")
+            .partitions(12)  // Scale with worker count
+            .replicas(3)     // Fault tolerance
+            .config(TopicConfig.RETENTION_MS_CONFIG, "604800000") // 7 days
+            .build();
+    }
+    
+    @Bean
+    public NewTopic retryTopic() {
+        return TopicBuilder.name("jobs.retry")
+            .partitions(6)
+            .replicas(3)
+            .build();
+    }
+}
+\`\`\`
+
+### 3. Worker Pool with Retry Mechanisms
+
+Workers consume from Kafka and execute jobs with configurable retry strategies:
+
+\`\`\`java
+@Component
+public class JobWorker {
+
+    @KafkaListener(topics = "jobs.default", 
+                   groupId = "job-workers",
+                   concurrency = "10")
+    public void processJob(ConsumerRecord<String, JobMessage> record) {
+        JobMessage message = record.value();
+        
+        try {
+            // Execute the job
+            JobResult result = jobExecutor.execute(message);
+            
+            // Update status in DB
+            jobRepository.updateStatus(message.getJobId(), 
+                JobStatus.COMPLETED, result);
+                
+        } catch (RetryableException e) {
+            handleRetry(message, e);
+        } catch (Exception e) {
+            // Non-retryable - send to DLQ
+            sendToDLQ(message, e);
+        }
+    }
+    
+    private void handleRetry(JobMessage message, Exception e) {
+        int retryCount = message.getRetryCount() + 1;
+        
+        if (retryCount > message.getMaxRetries()) {
+            sendToDLQ(message, e);
+            return;
+        }
+        
+        // Calculate delay based on strategy
+        long delay = calculateDelay(message.getRetryStrategy(), 
+                                     retryCount);
+        
+        message.setRetryCount(retryCount);
+        message.setNextExecutionTime(Instant.now().plusMillis(delay));
+        
+        // Send to retry topic
+        kafkaTemplate.send("jobs.retry", 
+            message.getJobId().toString(), message);
+        
+        jobRepository.updateStatus(message.getJobId(), 
+            JobStatus.RETRYING);
+    }
+}
+\`\`\`
+
+### 4. Retry Strategies
+
+We support multiple backoff strategies:
+
+\`\`\`java
+public class RetryStrategyCalculator {
+    
+    public long calculateDelay(RetryStrategy strategy, int attempt) {
+        return switch (strategy) {
+            case FIXED -> 5000L; // 5 seconds
+            
+            case EXPONENTIAL -> (long) Math.pow(2, attempt) * 1000L;
+            // 2s, 4s, 8s, 16s, 32s...
+            
+            case EXPONENTIAL_WITH_JITTER -> {
+                long base = (long) Math.pow(2, attempt) * 1000L;
+                long jitter = ThreadLocalRandom.current()
+                    .nextLong(0, base / 2);
+                yield base + jitter;
+            }
+            
+            case LINEAR -> attempt * 3000L;
+            // 3s, 6s, 9s, 12s...
+        };
+    }
+}
+\`\`\`
+
+### 5. DB-Backed Recovery
+
+On startup, we recover any jobs that were in-flight when a worker crashed:
+
+\`\`\`java
+@Component
+public class JobRecoveryService {
+    
+    @PostConstruct
+    public void recoverStaleJobs() {
+        // Find jobs stuck in PROCESSING state
+        Instant threshold = Instant.now()
+            .minus(Duration.ofMinutes(5));
+        
+        List<Job> staleJobs = jobRepository
+            .findByStatusAndUpdatedBefore(
+                JobStatus.PROCESSING, threshold);
+        
+        for (Job job : staleJobs) {
+            log.warn("Recovering stale job: {}", job.getId());
+            
+            // Re-publish to Kafka
+            JobMessage message = JobMessage.from(job);
+            message.setRetryCount(job.getRetryCount());
+            
+            kafkaTemplate.send("jobs." + job.getType(), 
+                job.getId().toString(), message);
+            
+            jobRepository.updateStatus(job.getId(), 
+                JobStatus.QUEUED);
+        }
+        
+        log.info("Recovered {} stale jobs", staleJobs.size());
+    }
+}
+\`\`\`
+
+## Horizontal Scaling
+
+### Kafka Consumer Groups
+
+Workers are part of a consumer group. Adding more workers automatically rebalances partitions:
+
+- 12 partitions → up to 12 parallel workers
+- Each partition guarantees ordering
+- Consumer group coordination handles failover
+
+### Scaling Strategy
+
+\`\`\`yaml
+# Kubernetes HPA based on consumer lag
+apiVersion: autoscaling/v2
+kind: HorizontalPodAutoscaler
+spec:
+  scaleTargetRef:
+    name: job-worker
+  minReplicas: 3
+  maxReplicas: 12
+  metrics:
+    - type: External
+      external:
+        metric:
+          name: kafka_consumer_lag
+        target:
+          type: AverageValue
+          averageValue: "1000"
+\`\`\`
+
+## Monitoring & Observability
+
+Key metrics we track:
+
+- **Job throughput**: Jobs processed per second
+- **Consumer lag**: Kafka lag per partition
+- **Retry rate**: % of jobs requiring retries
+- **P99 execution time**: Per job type
+- **DLQ depth**: Failed jobs requiring attention
+
+\`\`\`java
+@Component
+public class JobMetrics {
+    
+    private final Counter jobsProcessed = Counter.builder("jobs.processed")
+        .tag("status", "success")
+        .register(meterRegistry);
+    
+    private final Counter jobsFailed = Counter.builder("jobs.processed")
+        .tag("status", "failed")
+        .register(meterRegistry);
+    
+    private final Timer jobDuration = Timer.builder("jobs.duration")
+        .publishPercentiles(0.5, 0.95, 0.99)
+        .register(meterRegistry);
+}
+\`\`\`
+
+## Results
+
+After deploying to production:
+
+- **10K+ concurrent jobs** handled reliably
+- **99.9% success rate** with retry mechanisms
+- **Horizontal scaling** from 3 to 12 workers based on load
+- **< 100ms** average scheduling latency
+- **Zero job loss** during worker failures (DB-backed recovery)
+
+## Key Design Decisions
+
+1. **Kafka over RabbitMQ**: Higher throughput, better replay capability, native partitioning
+2. **DB-first writes**: Ensures durability before async processing
+3. **Per-type topics**: Isolation between job types, independent scaling
+4. **Exponential backoff with jitter**: Prevents thundering herd on retries
+5. **Idempotent execution**: Jobs can safely be re-executed without side effects
+
+## Lessons Learned
+
+1. **Always persist before publishing** - DB writes must succeed before Kafka publish
+2. **Idempotency is non-negotiable** - Workers must handle duplicate messages
+3. **Monitor consumer lag** - It's your early warning system
+4. **Test failure scenarios** - Chaos engineering revealed edge cases
+5. **DLQ is your safety net** - Never lose a job, even if it can't be processed
+
+---
+
+This system has been running in production for months, processing millions of jobs daily with minimal operational overhead.
+    `,
+  },
 };
 
 export default function BlogPost() {

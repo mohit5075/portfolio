@@ -28,6 +28,7 @@ const experiences: ExperienceItem[] = [
       "Automated cloud infra and service provisioning using Terraform (EC2, RDS, VPC) and Ansible (Nomad, Consul, ElasticSearch)",
       "Delivered a multi-tenant OCR microservice using Python/Flask with around 85% accuracy, exposing REST APIs for template management and document processing, with metadata persisted in PostgreSQL",
       "Secured service access using JWT and API keys with HashiCorp Vault and managed scalable document storage on AWS S3",
+      "Built a distributed, fault-tolerant job scheduling system handling 10K+ concurrent jobs, integrating Apache Kafka for decoupled execution, enabling horizontal scaling of workers, durable job buffering, and 99.9% reliable processing with retry mechanisms (fixed/exponential backoff) and DB-backed recovery",
     ],
   },
   {

@@ -1,7 +1,7 @@
 "use client";
 
 import AnimateOnScroll from "./AnimateOnScroll";
-import { BookOpen, Clock, ArrowRight, TrendingUp, Database, Shield, DollarSign } from "lucide-react";
+import { BookOpen, Clock, ArrowRight, TrendingUp, Database, Shield, DollarSign, Timer } from "lucide-react";
 import Link from "next/link";
 
 interface BlogPost {
@@ -55,6 +55,16 @@ const blogPosts: BlogPost[] = [
     tags: ["AWS", "Cost Optimization", "DevOps", "Monitoring"],
     icon: DollarSign,
     gradient: "from-orange-500 to-red-500",
+  },
+  {
+    id: "distributed-job-scheduler",
+    title: "Building a Distributed Fault-Tolerant Job Scheduler with Kafka",
+    excerpt: "How we designed a job scheduling system handling 10K+ concurrent jobs with 99.9% reliability using Kafka for decoupled execution, exponential backoff retries, and DB-backed recovery.",
+    date: "May 2026",
+    readTime: "11 min read",
+    tags: ["Kafka", "Distributed Systems", "Fault Tolerance", "Job Scheduling"],
+    icon: Timer,
+    gradient: "from-indigo-500 to-violet-500",
   },
 ];
 
