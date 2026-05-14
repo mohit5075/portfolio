@@ -66,7 +66,7 @@ export default function Hero() {
             View Projects
             <ArrowDown size={16} />
           </a>
-          <a href="https://drive.google.com/file/d/1OpM2XL5vK5M-eNhxfNR1siMs23KMO9pk/view?usp=sharing" target="_blank" rel="noopener noreferrer" className="btn-secondary">
+          <a href="https://drive.google.com/file/d/1Tq7qzfjTlkNLD8n9QpqDi_QMy2LF5j8n/view?usp=sharing" target="_blank" rel="noopener noreferrer" className="btn-secondary">
             <Download size={16} />
             Download Resume
           </a>
