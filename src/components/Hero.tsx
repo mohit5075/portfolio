@@ -51,7 +51,7 @@ export default function Hero() {
           transition={{ duration: 0.6, delay: 0.2 }}
           className="mt-6 text-lg sm:text-xl text-body max-w-2xl mx-auto leading-relaxed"
         >
-          Software Engineer with 2.5 years of experience building secure, scalable backend 
+          Software Engineer with 3+ years of experience building secure, scalable backend 
           systems using Java and SpringBoot. Strong foundation in DSA, OOPS, and distributed 
           systems, with hands-on AWS experience and a passion for logical problem-solving.
         </motion.p>
@@ -66,7 +66,7 @@ export default function Hero() {
             View Projects
             <ArrowDown size={16} />
           </a>
-          <a href="https://drive.google.com/file/d/1Tq7qzfjTlkNLD8n9QpqDi_QMy2LF5j8n/view?usp=sharing" target="_blank" rel="noopener noreferrer" className="btn-secondary">
+          <a href="https://drive.google.com/file/d/1onZVVuxLJQR-3xG17hTcH-6sJSdJKHGK/view?usp=sharing" target="_blank" rel="noopener noreferrer" className="btn-secondary">
             <Download size={16} />
             Download Resume
           </a>

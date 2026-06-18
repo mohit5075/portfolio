@@ -23,7 +23,7 @@ export default function About() {
           <AnimateOnScroll className="lg:col-span-3">
             <div className="space-y-5 text-body leading-relaxed">
               <p>
-                I&apos;m a Software Engineer with 2.5 years of experience building secure, 
+                I&apos;m a Software Engineer with 3 years of experience building secure, 
                 scalable backend systems using Java and SpringBoot. With strong foundations in
                 Data Structures & Algorithms, Object-Oriented Programming, and Distributed
                 Systems, I thrive on solving complex technical challenges.

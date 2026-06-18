@@ -109,7 +109,7 @@ export default function Navbar() {
             >
               {theme === "dark" ? <Sun size={18} /> : <Moon size={18} />}
             </button>
-            <a href="https://drive.google.com/file/d/1Tq7qzfjTlkNLD8n9QpqDi_QMy2LF5j8n/view?usp=sharing" target="_blank" rel="noopener noreferrer" className="hidden sm:inline-flex btn-primary !py-2 !px-4 !text-xs">
+            <a href="https://drive.google.com/file/d/1onZVVuxLJQR-3xG17hTcH-6sJSdJKHGK/view?usp=sharing" target="_blank" rel="noopener noreferrer" className="hidden sm:inline-flex btn-primary !py-2 !px-4 !text-xs">
               <Download size={14} />
               Resume
             </a>
@@ -151,7 +151,7 @@ export default function Navbar() {
                 </a>
               ))}
               <a
-                href="https://drive.google.com/file/d/1Tq7qzfjTlkNLD8n9QpqDi_QMy2LF5j8n/view?usp=sharing"
+                href="https://drive.google.com/file/d/1onZVVuxLJQR-3xG17hTcH-6sJSdJKHGK/view?usp=sharing"
                 target="_blank"
                 rel="noopener noreferrer"
                 className="btn-primary justify-center mt-4"
