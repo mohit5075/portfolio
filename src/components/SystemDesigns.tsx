@@ -20,7 +20,7 @@ const systemDesigns: SystemDesign[] = [
     id: "notification-system",
     title: "Notification System",
     icon: Zap,
-    description: "Multi-channel notification service handling 100K+ notifications/day across email, SMS, and push",
+    description: "Multi-channel notification service handling 10M+ notifications/day across email, SMS, and push",
     tags: ["Kafka", "SpringBoot", "Redis", "WebSockets"],
     complexity: "High",
     gradient: "from-red-500 to-pink-500",

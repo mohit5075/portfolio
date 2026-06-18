@@ -273,7 +273,7 @@ public Response processRequest(String tenantId, Request req) {
 
 ---
 
-This architecture has successfully served 100+ tenants with 1000+ req/min throughput.
+This architecture has successfully served 100+ tenants with 1000+ req/sec throughput.
     `,
   },
   "aws-cost-optimization": {

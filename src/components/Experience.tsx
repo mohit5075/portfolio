@@ -20,11 +20,11 @@ const experiences: ExperienceItem[] = [
     highlights: [
       "Built an event-driven data lifecycle platform using Kafka Connect, automating archival, export, and restoration across PostgreSQL, Elasticsearch, and MinIO, with policy management backed by MongoDB",
       "Implemented a reporting platform using Postgres, CDC, Kafka, ClickHouse, Jasper processing 5K+ events/sec with sub-second latency and enabling near real-time analytics on transaction data",
-      "Delivered a multi-channel notification service (in-app, SMS, email) handling 100K+ notifications/day, alongside a touchless audit trail using Kafka, Debezium, and Javers for compliance-ready object versioning",
+      "Delivered a multi-channel notification service (in-app, SMS, email) handling 10M+ notifications/day, alongside a touchless audit trail using Kafka, Debezium, and Javers for compliance-ready object versioning",
       "Reduced AWS infrastructure costs by ~35% by analyzing per-service CPU and memory utilization using Nomad metrics and Kibana dashboards, driving informed capacity optimization decisions",
       "Owned platform operational services, including a License Server managing the full lifecycle of license keys via License4J and a process-mining service to monitor and analyze Camunda workflows using Optimize",
       "Built and operated a BFSI Decision-as-a-Service (DaaS) platform integrating multiple third-party providers, with tenant onboarding APIs, dynamic configuration, and workflow orchestration using Netflix Conductor and Kong",
-      "Improved system performance and scalability by tuning Elasticsearch ILM policies and shard allocation, achieving ~30% faster query response times, while sustaining 1000+ requests/min at p99 < 75 ms",
+      "Improved system performance and scalability by tuning Elasticsearch ILM policies and shard allocation, achieving ~30% faster query response times, while sustaining 1000+ requests/sec at p99 < 75 ms",
       "Automated cloud infra and service provisioning using Terraform (EC2, RDS, VPC) and Ansible (Nomad, Consul, ElasticSearch)",
       "Delivered a multi-tenant OCR microservice using Python/Flask with around 85% accuracy, exposing REST APIs for template management and document processing, with metadata persisted in PostgreSQL",
       "Secured service access using JWT and API keys with HashiCorp Vault and managed scalable document storage on AWS S3",

@@ -9,8 +9,8 @@ Your portfolio has been transformed into a highly interactive, metrics-driven sh
 ### 1. **Metrics Component** (`src/components/Metrics.tsx`)
 - **Animated counter animations** showing real impact metrics:
   - 5,000+ events/sec processed
-  - 100K+ notifications/day
-  - 1000+ req/min throughput
+  - 10M+ notifications/day
+  - 1000+ req/sec throughput
   - p99 < 75ms latency
   - 35% cost reduction
   - 85% OCR accuracy
@@ -36,7 +36,7 @@ Your portfolio has been transformed into a highly interactive, metrics-driven sh
 
 ### 4. **System Designs** (`src/components/SystemDesigns.tsx`)
 - **4 comprehensive system design case studies**:
-  1. **Notification System** - Multi-channel with 100K+ notifications/day
+  1. **Notification System** - Multi-channel with 10M+ notifications/day
   2. **Distributed Rate Limiter** - Token bucket with Redis
   3. **Real-Time Analytics Pipeline** - Kafka + ClickHouse (5K+ events/sec)
   4. **Document Processing Platform** - OCR with 85% accuracy

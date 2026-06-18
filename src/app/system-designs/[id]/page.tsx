@@ -31,7 +31,7 @@ const systemDesigns: Record<string, {
 }> = {
   "notification-system": {
     title: "Multi-Channel Notification System",
-    description: "Event-driven notification service handling 100K+ notifications/day across email, SMS, and push channels",
+    description: "Event-driven notification service handling 10M+ notifications/day across email, SMS, and push channels",
     icon: Zap,
     gradient: "from-red-500 to-pink-500",
     architecture: {
